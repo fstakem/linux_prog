@@ -2,7 +2,8 @@
  *	read and print 24 lines then pause for a few special commands
  */
 
-#include	<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define	PAGELEN	24
 #define	LINELEN	512
@@ -10,25 +11,27 @@
 void do_more(FILE *);
 int  see_more();
 
-int main( int ac , char *av[] )
+int main(int ac , char *av[])
 {
-	FILE	*fp;
+	FILE *fp;
 
-	if ( ac == 1 )
+	if (ac == 1) {
 		do_more( stdin );
+	}
 	else
-		while ( --ac )
+		while (--ac)
 			if ( (fp = fopen( *++av , "r" )) != NULL )
 			{
 				do_more( fp ) ; 
 				fclose( fp );
 			}
-			else
+			else {
 				exit(1);
-	return 0;
+			}
+	exit(0);
 }
 
-void do_more( FILE *fp )
+void do_more(FILE *fp)
 /*
  *  read PAGELEN lines, then call see_more() for further instructions
  */
